@@ -1,6 +1,6 @@
 # 🤖 Navis – AI Assistant
 
-> Built by **Robo Manthan** × **BNMIT, Bangalore**
+> Built by **Robo Manthan**
 
 Navis is an AI-powered assistant with voice input/output, trainable Q&A, and a sleek dark-theme UI. Powered by **Groq's Llama 3.3 70B** model for ultra-fast responses.
 
@@ -128,7 +128,6 @@ navis-LLM/
 ## 👥 Team
 
 - **Robo Manthan** — Robotics & AI Company, Bengaluru
-- **BNMIT** — B.N.M. Institute of Technology, Bangalore
 
 ---
 
