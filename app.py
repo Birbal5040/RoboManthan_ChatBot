@@ -4,6 +4,8 @@ import os
 from difflib import SequenceMatcher
 from dotenv import load_dotenv
 from database import load_training_data, add_qa_pair, delete_qa_pair, init_storage
+#import os
+#print("DB URL:", os.getenv("DATABASE_URL"))
 
 load_dotenv()
 
@@ -142,7 +144,7 @@ def chat():
     # 1) Check personal training data first
     trained_answer = find_matching_qa(message)
     if trained_answer:
-        return jsonify({'response': trained_answer, 'source': 'trained', 'lang': lang})
+        return jsonify({'reply': trained_answer, 'source': 'trained', 'lang': lang})
 
     # 2) Fall back to Groq AI
     if not client:
@@ -154,10 +156,13 @@ def chat():
 
     try:
         response_text = chat_with_groq(message, lang)
-        return jsonify({'response': response_text, 'source': 'ai', 'lang': lang})
+        return jsonify({'reply': response_text, 'source': 'ai', 'lang': lang})
     except Exception as e:
-        return jsonify({'response': f"Sorry, I encountered an error: {str(e)}", 'source': 'error', 'lang': lang})
-
+        print("❌ ERROR IN GROQ:", e)
+        return jsonify({'reply': f"Sorry, I encountered an error: {str(e)}", 'source': 'error', 'lang': lang})
+    
+    
+    
 @app.route('/api/train', methods=['POST'])
 def train():
     data = request.json
@@ -169,11 +174,11 @@ def train():
     new_id = add_qa_pair(question, answer)
     return jsonify({'success': True, 'id': new_id})
 
-@app.route('/api/training-data', methods=['GET'])
+@app.route('/api/training_data', methods=['GET'])
 def get_training_data():
     return jsonify(load_training_data())
 
-@app.route('/api/training-data/<int:qa_id>', methods=['DELETE'])
+@app.route('/api/training_data/<int:qa_id>', methods=['DELETE'])
 def delete_training_data(qa_id):
     delete_qa_pair(qa_id)
     return jsonify({'success': True})

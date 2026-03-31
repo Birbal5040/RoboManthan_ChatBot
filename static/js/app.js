@@ -340,10 +340,10 @@ class NavisApp {
                         if (this.currentTypingEl) this.currentTypingEl.remove();
 
                         const sourceLabel = data.source === 'trained' ? '🎓 Trained' : data.source === 'ai' ? '✨ AI' : '';
-                        this.addMessage(data.response, 'navis', sourceLabel);
+                        this.addMessage(data.reply, 'navis', sourceLabel);
                         this.isProcessing = false;
                         // Use language from backend response, fallback to dropdown selection
-                        this.speak(data.response, data.lang || selectedLang);
+                        this.speak(data.reply, data.lang || selectedLang);
                 } catch (err) {
                         if (this.currentTypingEl) this.currentTypingEl.remove();
                         if (err.name !== 'AbortError') {
@@ -403,7 +403,7 @@ class NavisApp {
                 const avatar = document.createElement('div');
                 avatar.className = 'avatar';
                 if (sender === 'navis') {
-                        avatar.innerHTML = '<img src="/static/images/robomanthan_logo.png" onerror="this.outerHTML=\'N\'">';
+                        avatar.innerHTML = '<img src="/static/images/robot_logo.png" onerror="this.outerHTML=\'N\'">';
                 } else {
                         avatar.textContent = 'You';
                 }
